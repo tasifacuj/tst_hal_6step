@@ -1,4 +1,6 @@
 ### Motor control repo.
 
-Includes:
-- 6 step example for EVSPIN32G4 invertor.
+Example works with:
+- 6 step motor control
+- hall sensors
+- EVSPIN32G4 invertor.
