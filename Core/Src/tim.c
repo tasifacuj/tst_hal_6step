@@ -21,7 +21,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-
+#include <stm32g4xx_ll_tim.h>
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim1;
@@ -107,7 +107,9 @@ void MX_TIM1_Init(void)
   }
   /* USER CODE BEGIN TIM1_Init 2 */
     TIM1->CR1 |= TIM_CR1_CEN;
-    TIM1->BDTR |= TIM_BDTR_MOE;
+//    TIM1->BDTR |= TIM_BDTR_MOE;
+    LL_TIM_EnableAllOutputs(TIM1);
+
   /* USER CODE END TIM1_Init 2 */
   HAL_TIM_MspPostInit(&htim1);
 

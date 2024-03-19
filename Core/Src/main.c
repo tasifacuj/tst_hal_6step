@@ -100,18 +100,21 @@ int main(void)
   LL_TIM_EnableCounter( TIM1 );
   LL_TIM_CC_EnableChannel( TIM1, TIMxCCER_MASK_CH123 | TIMxCCER_MASK_CH1N2N3N );
 
-//    HAL_StatusTypeDef t_rv = HAL_TIM_Base_Start(&htim1);
-//  HAL_StatusTypeDef ch1_rv =  HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_1);
-//  HAL_StatusTypeDef ch1n_rv =  HAL_TIMEx_PWMN_Start( &htim1, TIM_CHANNEL_1);
-//  HAL_StatusTypeDef ch2_rv =  HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_2);
-//  HAL_StatusTypeDef ch2n_rv =  HAL_TIMEx_PWMN_Start( &htim1, TIM_CHANNEL_2);
-//  HAL_StatusTypeDef ch3_rv =  HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_3);
-//  HAL_StatusTypeDef ch3n_rv =  HAL_TIMEx_PWMN_Start( &htim1, TIM_CHANNEL_3);
+  LL_TIM_ClearFlag_UPDATE( TIM1 );
 
-  HAL_Delay( 2000 );
+    /*Turn on the three low side switches */
+    LL_TIM_OC_SetCompareCH1(TIM1, 0u);
+    LL_TIM_OC_SetCompareCH2(TIM1, 0u);
+    LL_TIM_OC_SetCompareCH3(TIM1, 0u);
+//    SixPwm_ResetOCPolarity(pHandle);
+    LL_TIM_GenerateEvent_COM( TIM1 );
+    /* Main PWM Output Enable */
+    LL_TIM_EnableAllOutputs(TIM1);
+
+  HAL_Delay( 3000 );
   printf( ">>>>\r\n" );
   BLDC_MotorCommutation( read_hall_pos() );
-  BLDC_set_pwm( 3000 );
+  BLDC_set_pwm( 4000 );
   /* USER CODE END 2 */
 
   /* Infinite loop */
